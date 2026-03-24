@@ -1,0 +1,1438 @@
+{
+  "generated_at": "2026.03.24 16:26",
+  "today": "2026-03-24",
+  "week_start": "2026-03-23",
+  "week_end": "2026-03-29",
+  "days_left": 5,
+  "matchup_period": 22,
+  "scoreboard": {
+    "my_team": "Los Angyalfold",
+    "opp_team": "Team avenGER",
+    "my_score": 250.0,
+    "opp_score": 193.0,
+    "diff": 57.0,
+    "leading": true,
+    "safety_buffer": 11.4,
+    "today_my_players": 2,
+    "today_opp_players": 7
+  },
+  "prediction": {
+    "buffer": {
+      "value": 11.4,
+      "level": "yellow",
+      "days_left": 5,
+      "current_lead": 57.0,
+      "interpretation": "Az ellenfél naponta 11.4 ponttal termelhet többet és te még mindig nyersz."
+    },
+    "my_projections": [
+      {
+        "name": "Kon Knueppel",
+        "slot": "UT",
+        "avg_points": 33.9,
+        "rem_count": 4,
+        "projected": 135.6,
+        "is_dtd": true
+      },
+      {
+        "name": "Evan Mobley",
+        "slot": "PF",
+        "avg_points": 41.5,
+        "rem_count": 3,
+        "projected": 124.5,
+        "is_dtd": false
+      },
+      {
+        "name": "Dyson Daniels",
+        "slot": "G",
+        "avg_points": 36.0,
+        "rem_count": 3,
+        "projected": 108.0,
+        "is_dtd": false
+      },
+      {
+        "name": "Victor Wembanyama",
+        "slot": "UT",
+        "avg_points": 53.5,
+        "rem_count": 2,
+        "projected": 107.0,
+        "is_dtd": false
+      },
+      {
+        "name": "Andrew Wiggins",
+        "slot": "UT",
+        "avg_points": 32.7,
+        "rem_count": 3,
+        "projected": 98.1,
+        "is_dtd": false
+      },
+      {
+        "name": "Ausar Thompson",
+        "slot": "F",
+        "avg_points": 28.8,
+        "rem_count": 3,
+        "projected": 86.4,
+        "is_dtd": false
+      },
+      {
+        "name": "Kel'el Ware",
+        "slot": "C",
+        "avg_points": 28.6,
+        "rem_count": 3,
+        "projected": 85.8,
+        "is_dtd": false
+      },
+      {
+        "name": "Davion Mitchell",
+        "slot": "PG",
+        "avg_points": 27.3,
+        "rem_count": 3,
+        "projected": 81.9,
+        "is_dtd": false
+      },
+      {
+        "name": "Austin Reaves",
+        "slot": "SF",
+        "avg_points": 40.7,
+        "rem_count": 2,
+        "projected": 81.4,
+        "is_dtd": false
+      },
+      {
+        "name": "Quentin Grimes",
+        "slot": "SG",
+        "avg_points": 25.9,
+        "rem_count": 2,
+        "projected": 51.8,
+        "is_dtd": true
+      }
+    ],
+    "opp_projections": [
+      {
+        "name": "Zion Williamson",
+        "slot": "PF",
+        "avg_points": 36.3,
+        "rem_count": 4,
+        "projected": 145.2,
+        "is_dtd": false
+      },
+      {
+        "name": "James Harden",
+        "slot": "PG",
+        "avg_points": 44.2,
+        "rem_count": 3,
+        "projected": 132.6,
+        "is_dtd": false
+      },
+      {
+        "name": "Miles Bridges",
+        "slot": "SF",
+        "avg_points": 31.1,
+        "rem_count": 4,
+        "projected": 124.4,
+        "is_dtd": false
+      },
+      {
+        "name": "Paolo Banchero",
+        "slot": "UT",
+        "avg_points": 38.4,
+        "rem_count": 3,
+        "projected": 115.2,
+        "is_dtd": false
+      },
+      {
+        "name": "Maxime Raynaud",
+        "slot": "C",
+        "avg_points": 24.6,
+        "rem_count": 4,
+        "projected": 98.4,
+        "is_dtd": false
+      },
+      {
+        "name": "Cameron Johnson",
+        "slot": "F",
+        "avg_points": 23.8,
+        "rem_count": 4,
+        "projected": 95.2,
+        "is_dtd": false
+      },
+      {
+        "name": "Tre Jones",
+        "slot": "UT",
+        "avg_points": 30.6,
+        "rem_count": 3,
+        "projected": 91.8,
+        "is_dtd": false
+      },
+      {
+        "name": "Devin Vassell",
+        "slot": "G",
+        "avg_points": 26.6,
+        "rem_count": 2,
+        "projected": 53.2,
+        "is_dtd": false
+      },
+      {
+        "name": "Cameron Payne",
+        "slot": "SG",
+        "avg_points": 20.4,
+        "rem_count": 2,
+        "projected": 40.8,
+        "is_dtd": false
+      },
+      {
+        "name": "Oso Ighodaro",
+        "slot": "UT",
+        "avg_points": 20.0,
+        "rem_count": 2,
+        "projected": 40.0,
+        "is_dtd": false
+      }
+    ],
+    "team_totals": {
+      "my_proj_remaining": 960.5,
+      "opp_proj_remaining": 936.8,
+      "my_dtd_loss": 187.4,
+      "opp_dtd_loss": 0,
+      "proj_diff": 23.7
+    },
+    "scenarios": {
+      "best": {
+        "diff": 80.7,
+        "label": "GYŐZELEM"
+      },
+      "expected": {
+        "diff": -13.0,
+        "label": "VESZÉLY"
+      },
+      "worst": {
+        "diff": -106.7,
+        "label": "VESZÉLY"
+      }
+    },
+    "current_lead": 57.0
+  },
+  "alerts": [
+    {
+      "level": "orange",
+      "message": "DTD az aktív lineup-ban: Quentin Grimes, Kon Knueppel – döntés szükséges!"
+    },
+    {
+      "level": "red",
+      "message": "Ma az ellenfélnek több aktív játékosa van: 7 vs 2 – töltsd be a lyukat!"
+    }
+  ],
+  "my_roster": {
+    "active": [
+      {
+        "name": "Kel'el Ware",
+        "slot": "C",
+        "position": "C",
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": [
+          {
+            "date": "2026-03-25",
+            "opponent": "CLE"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "CLE"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "IND"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-23",
+            "opponent": "SAS"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "CLE"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "CLE"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "IND"
+          }
+        ],
+        "rem_count": 3,
+        "week_count": 4,
+        "avg_points": 28.6,
+        "total_points": 1916.0,
+        "status": "alert"
+      },
+      {
+        "name": "Ausar Thompson",
+        "slot": "F",
+        "position": "SF",
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": [
+          {
+            "date": "2026-03-25",
+            "opponent": "ATL"
+          },
+          {
+            "date": "2026-03-26",
+            "opponent": "NOP"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "MIN"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-23",
+            "opponent": "LAL"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "ATL"
+          },
+          {
+            "date": "2026-03-26",
+            "opponent": "NOP"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "MIN"
+          }
+        ],
+        "rem_count": 3,
+        "week_count": 4,
+        "avg_points": 28.8,
+        "total_points": 1786.0,
+        "status": "alert"
+      },
+      {
+        "name": "Dyson Daniels",
+        "slot": "G",
+        "position": "SG",
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": [
+          {
+            "date": "2026-03-25",
+            "opponent": "DET"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "BOS"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "SAC"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-23",
+            "opponent": "MEM"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "DET"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "BOS"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "SAC"
+          }
+        ],
+        "rem_count": 3,
+        "week_count": 4,
+        "avg_points": 36.0,
+        "total_points": 2448.0,
+        "status": "alert"
+      },
+      {
+        "name": "Evan Mobley",
+        "slot": "PF",
+        "position": "PF",
+        "injury": "ACTIVE",
+        "plays_today": true,
+        "games_remaining": [
+          {
+            "date": "2026-03-24",
+            "opponent": "ORL"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "MIA"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "MIA"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-24",
+            "opponent": "ORL"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "MIA"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "MIA"
+          }
+        ],
+        "rem_count": 3,
+        "week_count": 3,
+        "avg_points": 41.5,
+        "total_points": 2321.0,
+        "status": "ok"
+      },
+      {
+        "name": "Davion Mitchell",
+        "slot": "PG",
+        "position": "PG",
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": [
+          {
+            "date": "2026-03-25",
+            "opponent": "CLE"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "CLE"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "IND"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-23",
+            "opponent": "SAS"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "CLE"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "CLE"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "IND"
+          }
+        ],
+        "rem_count": 3,
+        "week_count": 4,
+        "avg_points": 27.3,
+        "total_points": 1668.0,
+        "status": "alert"
+      },
+      {
+        "name": "Austin Reaves",
+        "slot": "SF",
+        "position": "SG",
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": [
+          {
+            "date": "2026-03-25",
+            "opponent": "IND"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "BKN"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-23",
+            "opponent": "DET"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "IND"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "BKN"
+          }
+        ],
+        "rem_count": 2,
+        "week_count": 3,
+        "avg_points": 40.7,
+        "total_points": 1872.0,
+        "status": "alert"
+      },
+      {
+        "name": "Quentin Grimes",
+        "slot": "SG",
+        "position": "SG",
+        "injury": "DAY_TO_DAY",
+        "plays_today": false,
+        "games_remaining": [
+          {
+            "date": "2026-03-25",
+            "opponent": "CHI"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "CHA"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-23",
+            "opponent": "OKC"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "CHI"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "CHA"
+          }
+        ],
+        "rem_count": 2,
+        "week_count": 3,
+        "avg_points": 25.9,
+        "total_points": 1680.0,
+        "status": "warning"
+      },
+      {
+        "name": "Victor Wembanyama",
+        "slot": "UT",
+        "position": "C",
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": [
+          {
+            "date": "2026-03-25",
+            "opponent": "MEM"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "MIL"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-23",
+            "opponent": "MIA"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "MEM"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "MIL"
+          }
+        ],
+        "rem_count": 2,
+        "week_count": 3,
+        "avg_points": 53.5,
+        "total_points": 3047.0,
+        "status": "alert"
+      },
+      {
+        "name": "Kon Knueppel",
+        "slot": "UT",
+        "position": "SG",
+        "injury": "DAY_TO_DAY",
+        "plays_today": true,
+        "games_remaining": [
+          {
+            "date": "2026-03-24",
+            "opponent": "SAC"
+          },
+          {
+            "date": "2026-03-26",
+            "opponent": "NYK"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "PHL"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "BOS"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-24",
+            "opponent": "SAC"
+          },
+          {
+            "date": "2026-03-26",
+            "opponent": "NYK"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "PHL"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "BOS"
+          }
+        ],
+        "rem_count": 4,
+        "week_count": 4,
+        "avg_points": 33.9,
+        "total_points": 2372.0,
+        "status": "warning"
+      },
+      {
+        "name": "Andrew Wiggins",
+        "slot": "UT",
+        "position": "SF",
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": [
+          {
+            "date": "2026-03-25",
+            "opponent": "CLE"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "CLE"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "IND"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-23",
+            "opponent": "SAS"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "CLE"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "CLE"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "IND"
+          }
+        ],
+        "rem_count": 3,
+        "week_count": 4,
+        "avg_points": 32.7,
+        "total_points": 1899.0,
+        "status": "alert"
+      }
+    ],
+    "bench": [
+      {
+        "name": "Jaylen Brown",
+        "slot": "BE",
+        "position": "SF",
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": [
+          {
+            "date": "2026-03-25",
+            "opponent": "OKC"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "ATL"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "CHA"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-25",
+            "opponent": "OKC"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "ATL"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "CHA"
+          }
+        ],
+        "rem_count": 3,
+        "week_count": 3,
+        "avg_points": 43.7,
+        "total_points": 2798.0,
+        "status": "bench_idle"
+      },
+      {
+        "name": "Kristaps Porzingis",
+        "slot": "BE",
+        "position": "C",
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": [
+          {
+            "date": "2026-03-25",
+            "opponent": "BKN"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "WAS"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "DEN"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-23",
+            "opponent": "DAL"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "BKN"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "WAS"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "DEN"
+          }
+        ],
+        "rem_count": 3,
+        "week_count": 4,
+        "avg_points": 32.6,
+        "total_points": 814.0,
+        "status": "bench_idle"
+      },
+      {
+        "name": "Paul George",
+        "slot": "BE",
+        "position": "SF",
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": [
+          {
+            "date": "2026-03-25",
+            "opponent": "CHI"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "CHA"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-23",
+            "opponent": "OKC"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "CHI"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "CHA"
+          }
+        ],
+        "rem_count": 2,
+        "week_count": 3,
+        "avg_points": 33.2,
+        "total_points": 896.0,
+        "status": "bench_idle"
+      }
+    ]
+  },
+  "opp_roster": {
+    "active": [
+      {
+        "name": "Maxime Raynaud",
+        "slot": "C",
+        "position": "C",
+        "injury": "ACTIVE",
+        "plays_today": true,
+        "games_remaining": [
+          {
+            "date": "2026-03-24",
+            "opponent": "CHA"
+          },
+          {
+            "date": "2026-03-26",
+            "opponent": "ORL"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "ATL"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "BKN"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-24",
+            "opponent": "CHA"
+          },
+          {
+            "date": "2026-03-26",
+            "opponent": "ORL"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "ATL"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "BKN"
+          }
+        ],
+        "rem_count": 4,
+        "week_count": 4,
+        "avg_points": 24.6,
+        "total_points": 1572.0,
+        "status": "ok"
+      },
+      {
+        "name": "Cameron Johnson",
+        "slot": "F",
+        "position": "SF",
+        "injury": "ACTIVE",
+        "plays_today": true,
+        "games_remaining": [
+          {
+            "date": "2026-03-24",
+            "opponent": "PHO"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "DAL"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "UTA"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "GSW"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-24",
+            "opponent": "PHO"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "DAL"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "UTA"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "GSW"
+          }
+        ],
+        "rem_count": 4,
+        "week_count": 4,
+        "avg_points": 23.8,
+        "total_points": 1093.0,
+        "status": "ok"
+      },
+      {
+        "name": "Devin Vassell",
+        "slot": "G",
+        "position": "SG",
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": [
+          {
+            "date": "2026-03-25",
+            "opponent": "MEM"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "MIL"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-23",
+            "opponent": "MIA"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "MEM"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "MIL"
+          }
+        ],
+        "rem_count": 2,
+        "week_count": 3,
+        "avg_points": 26.6,
+        "total_points": 1514.0,
+        "status": "alert"
+      },
+      {
+        "name": "Zion Williamson",
+        "slot": "PF",
+        "position": "PF",
+        "injury": "ACTIVE",
+        "plays_today": true,
+        "games_remaining": [
+          {
+            "date": "2026-03-24",
+            "opponent": "NYK"
+          },
+          {
+            "date": "2026-03-26",
+            "opponent": "DET"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "TOR"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "HOU"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-24",
+            "opponent": "NYK"
+          },
+          {
+            "date": "2026-03-26",
+            "opponent": "DET"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "TOR"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "HOU"
+          }
+        ],
+        "rem_count": 4,
+        "week_count": 4,
+        "avg_points": 36.3,
+        "total_points": 1995.0,
+        "status": "ok"
+      },
+      {
+        "name": "James Harden",
+        "slot": "PG",
+        "position": "PG",
+        "injury": "ACTIVE",
+        "plays_today": true,
+        "games_remaining": [
+          {
+            "date": "2026-03-24",
+            "opponent": "ORL"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "MIA"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "MIA"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-24",
+            "opponent": "ORL"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "MIA"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "MIA"
+          }
+        ],
+        "rem_count": 3,
+        "week_count": 3,
+        "avg_points": 44.2,
+        "total_points": 2695.0,
+        "status": "ok"
+      },
+      {
+        "name": "Miles Bridges",
+        "slot": "SF",
+        "position": "SF",
+        "injury": "ACTIVE",
+        "plays_today": true,
+        "games_remaining": [
+          {
+            "date": "2026-03-24",
+            "opponent": "SAC"
+          },
+          {
+            "date": "2026-03-26",
+            "opponent": "NYK"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "PHL"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "BOS"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-24",
+            "opponent": "SAC"
+          },
+          {
+            "date": "2026-03-26",
+            "opponent": "NYK"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "PHL"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "BOS"
+          }
+        ],
+        "rem_count": 4,
+        "week_count": 4,
+        "avg_points": 31.1,
+        "total_points": 2051.0,
+        "status": "ok"
+      },
+      {
+        "name": "Cameron Payne",
+        "slot": "SG",
+        "position": "PG",
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": [
+          {
+            "date": "2026-03-25",
+            "opponent": "CHI"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "CHA"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-23",
+            "opponent": "OKC"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "CHI"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "CHA"
+          }
+        ],
+        "rem_count": 2,
+        "week_count": 3,
+        "avg_points": 20.4,
+        "total_points": 367.0,
+        "status": "alert"
+      },
+      {
+        "name": "Paolo Banchero",
+        "slot": "UT",
+        "position": "PF",
+        "injury": "ACTIVE",
+        "plays_today": true,
+        "games_remaining": [
+          {
+            "date": "2026-03-24",
+            "opponent": "CLE"
+          },
+          {
+            "date": "2026-03-26",
+            "opponent": "SAC"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "TOR"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-23",
+            "opponent": "IND"
+          },
+          {
+            "date": "2026-03-24",
+            "opponent": "CLE"
+          },
+          {
+            "date": "2026-03-26",
+            "opponent": "SAC"
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "TOR"
+          }
+        ],
+        "rem_count": 3,
+        "week_count": 4,
+        "avg_points": 38.4,
+        "total_points": 2341.0,
+        "status": "ok"
+      },
+      {
+        "name": "Tre Jones",
+        "slot": "UT",
+        "position": "PG",
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": [
+          {
+            "date": "2026-03-25",
+            "opponent": "PHL"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "OKC"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "MEM"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-23",
+            "opponent": "HOU"
+          },
+          {
+            "date": "2026-03-25",
+            "opponent": "PHL"
+          },
+          {
+            "date": "2026-03-27",
+            "opponent": "OKC"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "MEM"
+          }
+        ],
+        "rem_count": 3,
+        "week_count": 4,
+        "avg_points": 30.6,
+        "total_points": 1650.0,
+        "status": "alert"
+      },
+      {
+        "name": "Oso Ighodaro",
+        "slot": "UT",
+        "position": "PF",
+        "injury": "ACTIVE",
+        "plays_today": true,
+        "games_remaining": [
+          {
+            "date": "2026-03-24",
+            "opponent": "DEN"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "UTA"
+          }
+        ],
+        "games_this_week": [
+          {
+            "date": "2026-03-24",
+            "opponent": "DEN"
+          },
+          {
+            "date": "2026-03-28",
+            "opponent": "UTA"
+          }
+        ],
+        "rem_count": 2,
+        "week_count": 2,
+        "avg_points": 20.0,
+        "total_points": 1443.0,
+        "status": "ok"
+      }
+    ]
+  },
+  "daily_counts": [
+    {
+      "date": "2026-03-23",
+      "label": "03.23 Mon",
+      "my_count": 8,
+      "opp_count": 4,
+      "diff": 4,
+      "is_today": false,
+      "is_past": true
+    },
+    {
+      "date": "2026-03-24",
+      "label": "03.24 Tue",
+      "my_count": 2,
+      "opp_count": 7,
+      "diff": -5,
+      "is_today": true,
+      "is_past": false
+    },
+    {
+      "date": "2026-03-25",
+      "label": "03.25 Wed",
+      "my_count": 9,
+      "opp_count": 5,
+      "diff": 4,
+      "is_today": false,
+      "is_past": false
+    },
+    {
+      "date": "2026-03-26",
+      "label": "03.26 Thu",
+      "my_count": 2,
+      "opp_count": 4,
+      "diff": -2,
+      "is_today": false,
+      "is_past": false
+    },
+    {
+      "date": "2026-03-27",
+      "label": "03.27 Fri",
+      "my_count": 6,
+      "opp_count": 4,
+      "diff": 2,
+      "is_today": false,
+      "is_past": false
+    },
+    {
+      "date": "2026-03-28",
+      "label": "03.28 Sat",
+      "my_count": 5,
+      "opp_count": 6,
+      "diff": -1,
+      "is_today": false,
+      "is_past": false
+    },
+    {
+      "date": "2026-03-29",
+      "label": "03.29 Sun",
+      "my_count": 4,
+      "opp_count": 5,
+      "diff": -1,
+      "is_today": false,
+      "is_past": false
+    }
+  ],
+  "remaining_totals": {
+    "my_total": 28,
+    "opp_total": 31,
+    "diff": -3
+  },
+  "lineup_actions": [
+    {
+      "type": "dtd_watch",
+      "player": "Quentin Grimes",
+      "slot": "SG",
+      "reason": "DTD – ellenőrizd az ESPN-en meccsnap reggelén!"
+    },
+    {
+      "type": "dtd_watch",
+      "player": "Kon Knueppel",
+      "slot": "UT",
+      "reason": "DTD – ellenőrizd az ESPN-en meccsnap reggelén!"
+    }
+  ],
+  "free_agents": {
+    "add_now": [
+      {
+        "name": "Nic Claxton",
+        "position": "C",
+        "pro_team": "BKN",
+        "avg_points": 30.8,
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": 3,
+        "rem_game_dates": [
+          "2026-03-25",
+          "2026-03-27",
+          "2026-03-29"
+        ],
+        "drop_player": "Paul George",
+        "drop_rem_count": 2,
+        "net_games": 1,
+        "reasoning": "Nic Claxton – 3 meccs hátra vs. ejtendő Paul George 2 meccse. NET: +1 games. Avg: 30.8 pts.",
+        "decision": "AZONNAL"
+      },
+      {
+        "name": "Jaime Jaquez Jr.",
+        "position": "SF",
+        "pro_team": "MIA",
+        "avg_points": 29.5,
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": 3,
+        "rem_game_dates": [
+          "2026-03-25",
+          "2026-03-27",
+          "2026-03-29"
+        ],
+        "drop_player": "Paul George",
+        "drop_rem_count": 2,
+        "net_games": 1,
+        "reasoning": "Jaime Jaquez Jr. – 3 meccs hátra vs. ejtendő Paul George 2 meccse. NET: +1 games. Avg: 29.5 pts.",
+        "decision": "AZONNAL"
+      },
+      {
+        "name": "Ajay Mitchell",
+        "position": "PG",
+        "pro_team": "OKC",
+        "avg_points": 28.9,
+        "injury": "DAY_TO_DAY",
+        "plays_today": false,
+        "games_remaining": 3,
+        "rem_game_dates": [
+          "2026-03-25",
+          "2026-03-27",
+          "2026-03-29"
+        ],
+        "drop_player": "Paul George",
+        "drop_rem_count": 2,
+        "net_games": 1,
+        "reasoning": "Ajay Mitchell – 3 meccs hátra vs. ejtendő Paul George 2 meccse. NET: +1 games. Avg: 28.9 pts.",
+        "decision": "AZONNAL"
+      },
+      {
+        "name": "Neemias Queta",
+        "position": "C",
+        "pro_team": "BOS",
+        "avg_points": 28.6,
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": 3,
+        "rem_game_dates": [
+          "2026-03-25",
+          "2026-03-27",
+          "2026-03-29"
+        ],
+        "drop_player": "Paul George",
+        "drop_rem_count": 2,
+        "net_games": 1,
+        "reasoning": "Neemias Queta – 3 meccs hátra vs. ejtendő Paul George 2 meccse. NET: +1 games. Avg: 28.6 pts.",
+        "decision": "AZONNAL"
+      },
+      {
+        "name": "Derik Queen",
+        "position": "C",
+        "pro_team": "NOP",
+        "avg_points": 27.9,
+        "injury": "ACTIVE",
+        "plays_today": true,
+        "games_remaining": 4,
+        "rem_game_dates": [
+          "2026-03-24",
+          "2026-03-26",
+          "2026-03-27",
+          "2026-03-29"
+        ],
+        "drop_player": "Paul George",
+        "drop_rem_count": 2,
+        "net_games": 2,
+        "reasoning": "Derik Queen – 4 meccs hátra vs. ejtendő Paul George 2 meccse. NET: +2 games. Avg: 27.9 pts.",
+        "decision": "AZONNAL"
+      },
+      {
+        "name": "Brandin Podziemski",
+        "position": "SG",
+        "pro_team": "GSW",
+        "avg_points": 27.6,
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": 3,
+        "rem_game_dates": [
+          "2026-03-25",
+          "2026-03-27",
+          "2026-03-29"
+        ],
+        "drop_player": "Paul George",
+        "drop_rem_count": 2,
+        "net_games": 1,
+        "reasoning": "Brandin Podziemski – 3 meccs hátra vs. ejtendő Paul George 2 meccse. NET: +1 games. Avg: 27.6 pts.",
+        "decision": "AZONNAL"
+      },
+      {
+        "name": "Myles Turner",
+        "position": "C",
+        "pro_team": "MIL",
+        "avg_points": 26.9,
+        "injury": "ACTIVE",
+        "plays_today": false,
+        "games_remaining": 3,
+        "rem_game_dates": [
+          "2026-03-25",
+          "2026-03-28",
+          "2026-03-29"
+        ],
+        "drop_player": "Paul George",
+        "drop_rem_count": 2,
+        "net_games": 1,
+        "reasoning": "Myles Turner – 3 meccs hátra vs. ejtendő Paul George 2 meccse. NET: +1 games. Avg: 26.9 pts.",
+        "decision": "AZONNAL"
+      },
+      {
+        "name": "Christian Braun",
+        "position": "SG",
+        "pro_team": "DEN",
+        "avg_points": 24.9,
+        "injury": "ACTIVE",
+        "plays_today": true,
+        "games_remaining": 4,
+        "rem_game_dates": [
+          "2026-03-24",
+          "2026-03-25",
+          "2026-03-27",
+          "2026-03-29"
+        ],
+        "drop_player": "Paul George",
+        "drop_rem_count": 2,
+        "net_games": 2,
+        "reasoning": "Christian Braun – 4 meccs hátra vs. ejtendő Paul George 2 meccse. NET: +2 games. Avg: 24.9 pts.",
+        "decision": "AZONNAL"
+      }
+    ],
+    "one_day": [],
+    "skip": []
+  }
+}
