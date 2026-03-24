@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BUG NBA LEAGUE – Döntő Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Fira+Sans:wght@400;500;600;700;800;900&family=Barlow+Condensed:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ── ui-ux-pro-max: Dark OLED + Real-Time Monitoring + Basketball theme ── */
+:root {
+  --bg:           #0d0e17;
+  --bg2:          #080910;
+  --sidebar:      #0a0b14;
+  --topbar:       #0d0e17;
+  --card:         #141627;
+  --card2:        #191b2e;
+  --card3:        #1f2238;
+  --border:       rgba(255,255,255,.055);
+  --border2:      rgba(255,255,255,.09);
+  --border3:      rgba(255,255,255,.14);
+  --text:         #e9ebf8;
+  --text2:        #8a93bb;
+  --muted:        #48527a;
+  /* Purple accent (UI) */
+  --accent:       #7c6ff7;
+  --accent2:      #6c5ce7;
+  --accent-dim:   rgba(124,111,247,.14);
+  /* Basketball orange (Brand) */
+  --ball:         #ff6b00;
+  --ball2:        #e85e00;
+  --ball-dim:     rgba(255,107,0,.12);
+  --ball-glow:    rgba(255,107,0,.2);
+  /* Status colors */
+  --green:        #00d26a;
+  --green-dim:    rgba(0,210,106,.1);
+  --red:          #f03e3e;
+  --red-dim:      rgba(240,62,62,.1);
+  --yellow:       #ffd43b;
+  --yellow-dim:   rgba(255,212,59,.1);
+  --blue:         #4da6ff;
+  --opp:          #f03e3e;
+  /* Typography */
+  --font-data:    'Fira Code', monospace;
+  --font-body:    'Fira Sans', system-ui, sans-serif;
+  --font-bc:      'Barlow Condensed', system-ui, sans-serif;
+  /* Radius */
+  --r:   10px;
+  --r-lg: 14px;
+  --r-xl: 18px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+/* Basketball court SVG pattern */
+body {
+  background: var(--bg2);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='96' stroke='rgba(255,107,0,0.025)' stroke-width='1' fill='none'/%3E%3Cpath d='M4 100 Q52 52 100 4 Q148 52 196 100' stroke='rgba(255,107,0,0.02)' stroke-width='1' fill='none'/%3E%3Cpath d='M4 100 Q52 148 100 196 Q148 148 196 100' stroke='rgba(255,107,0,0.02)' stroke-width='1' fill='none'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 70% 50% at 15% 10%, rgba(124,111,247,.06) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 85% 90%, rgba(255,107,0,.04) 0%, transparent 50%);
+  background-size: 200px 200px, 100% 100%, 100% 100%;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+}
+
+/* ══════════════════════════════════════════════
+   SIDEBAR
+   ══════════════════════════════════════════════ */
+.sidebar {
+  width: 220px;
+  min-width: 220px;
+  background: var(--sidebar);
+  border-right: 1px solid var(--border);
+  height: 100vh;
+  position: fixed;
+  left: 0; top: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 200;
+}
+
+.sidebar-header {
+  padding: 18px 16px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.sidebar-icon {
+  width: 36px; height: 36px;
+  background: var(--ball-dim);
+  border: 1px solid rgba(255,107,0,.3);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 14px var(--ball-glow);
+}
+.sidebar-icon svg { width: 20px; height: 20px; }
+.sidebar-title { font-size: 14px; font-weight: 800; color: var(--text); letter-spacing: .01em; }
+.sidebar-sub   { font-size: 10px; color: var(--muted); margin-top: 1px; }
+
+.sidebar-nav { flex: 1; padding: 10px 8px; overflow-y: auto; }
+.nav-group { margin-bottom: 4px; }
+.nav-group-label {
+  font-size: 9.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--muted);
+  padding: 10px 10px 5px;
+  display: block;
+}
+.nav-link {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 11px; border-radius: 9px;
+  color: var(--text2); font-weight: 500; font-size: 12.5px;
+  cursor: pointer; transition: all .15s;
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+.nav-link:hover {
+  background: var(--card);
+  color: var(--text);
+  border-color: var(--border);
+  transform: translateX(2px);
+}
+.nav-link.active {
+  background: var(--ball-dim);
+  color: var(--ball);
+  border-color: rgba(255,107,0,.2);
+}
+.nav-link svg { width: 15px; height: 15px; flex-shrink: 0; opacity: .75; }
+.nav-link.active svg { opacity: 1; }
+.nav-tag {
+  margin-left: auto;
+  font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
+  padding: 2px 6px; border-radius: 4px;
+}
+.nav-tag.new    { background: var(--green-dim); color: var(--green); }
+.nav-tag.live   { background: var(--ball-dim);  color: var(--ball); }
+.nav-tag.beta   { background: var(--accent-dim);color: var(--accent); }
+
+.sidebar-teams {
+  padding: 8px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.st-label {
+  font-size: 9.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--muted); padding: 6px 4px 6px;
+  display: block;
+}
+.team-row {
+  display: flex; align-items: center; gap: 9px;
+  padding: 7px 8px; border-radius: 8px; cursor: pointer;
+  transition: background .15s; margin-bottom: 2px;
+}
+.team-row:hover { background: var(--card); }
+.team-av {
+  width: 28px; height: 28px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 900; flex-shrink: 0;
+  font-family: var(--font-bc);
+}
+.team-av.mine { background: rgba(255,212,59,.12); color: #ffd43b; border: 1px solid rgba(255,212,59,.25); }
+.team-av.opp  { background: var(--red-dim); color: var(--opp); border: 1px solid rgba(240,62,62,.25); }
+.team-info    { flex: 1; min-width: 0; }
+.team-nm { font-size: 11.5px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.team-sb { font-size: 10px; color: var(--muted); }
+.team-sc {
+  font-family: var(--font-bc);
+  font-size: 16px; font-weight: 900; flex-shrink: 0;
+}
+.team-sc.lead { color: var(--green); }
+.team-sc.trail { color: var(--text2); }
+
+.sidebar-foot {
+  padding: 10px 16px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; gap: 7px;
+  font-size: 10.5px; color: var(--muted);
+  flex-shrink: 0;
+}
+.live-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 8px var(--green);
+  flex-shrink: 0;
+  animation: live-pulse 2s ease-in-out infinite;
+}
+@keyframes live-pulse {
+  0%,100% { opacity: 1; transform: scale(1); box-shadow: 0 0 8px var(--green); }
+  50%      { opacity: .5; transform: scale(.8); box-shadow: 0 0 3px var(--green); }
+}
+
+/* ══════════════════════════════════════════════
+   MAIN LAYOUT
+   ══════════════════════════════════════════════ */
+.main { margin-left: 220px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+.topbar {
+  height: 58px;
+  background: var(--topbar);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px;
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(16px);
+  flex-shrink: 0;
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-crumb { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.topbar-crumb .sep { color: var(--muted); opacity: .5; }
+.topbar-crumb .cur { color: var(--text); font-weight: 600; }
+.matchup-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--ball-dim); border: 1px solid rgba(255,107,0,.3);
+  border-radius: 6px; padding: 4px 10px;
+  font-size: 11px; font-weight: 700; color: var(--ball);
+  letter-spacing: .04em;
+  box-shadow: 0 0 12px rgba(255,107,0,.1);
+}
+.topbar-right { display: flex; align-items: center; gap: 8px; }
+#topbar-time { font-size: 10.5px; color: var(--muted); }
+.tb-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--card2); border: 1px solid var(--border2);
+  border-radius: 8px; padding: 7px 13px;
+  font-size: 12px; font-weight: 600; color: var(--text2);
+  cursor: pointer; transition: all .2s; font-family: var(--font-body);
+}
+.tb-btn:hover { background: var(--card3); color: var(--text); border-color: var(--border3); }
+.tb-btn.primary {
+  background: var(--ball); color: #fff; border-color: transparent;
+  box-shadow: 0 2px 12px rgba(255,107,0,.35);
+}
+.tb-btn.primary:hover { background: var(--ball2); box-shadow: 0 2px 18px rgba(255,107,0,.5); transform: translateY(-1px); }
+
+/* Content */
+.content { padding: 22px 28px 56px; max-width: 1340px; width: 100%; }
+
+/* Grids */
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media(max-width:900px) { .grid2,.grid3 { grid-template-columns: 1fr; } }
+
+/* ══════════════════════════════════════════════
+   CARDS
+   ══════════════════════════════════════════════ */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 20px;
+  transition: border-color .2s, box-shadow .2s;
+}
+.card:hover { border-color: var(--border2); }
+.card-title {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .11em; color: var(--muted);
+  display: flex; align-items: center; gap: 6px; margin-bottom: 16px;
+}
+.card-title::after { content:''; flex:1; height:1px; background:var(--border); }
+.divider { height: 1px; background: var(--border); margin: 14px 0; }
+
+/* Alert bar — inside content, NOT sticky */
+.alert-area { margin-bottom: 12px; }
+.alert {
+  display: flex; align-items: center; gap: 10px;
+  padding: 11px 16px; font-size: 12px; font-weight: 600;
+  border-radius: var(--r); margin-bottom: 6px;
+}
+.alert.red    { background: rgba(240,62,62,.1);  border: 1px solid rgba(240,62,62,.25);  color: #ff8080; }
+.alert.orange { background: rgba(255,107,0,.1);  border: 1px solid rgba(255,107,0,.25);  color: #ffb380; }
+
+/* ══════════════════════════════════════════════
+   SECTION HEADERS
+   ══════════════════════════════════════════════ */
+.sec-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 12px; gap: 12px; flex-wrap: wrap;
+}
+.sec-header-left { display: flex; flex-direction: column; gap: 2px; }
+.sec-title {
+  font-size: 17px; font-weight: 800; color: var(--text);
+  letter-spacing: -.01em; font-family: var(--font-body);
+}
+.sec-sub { font-size: 11px; color: var(--muted); }
+.sec-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .07em; padding: 3px 9px; border-radius: 5px; margin-top: 2px;
+}
+.sec-badge.live   { background: var(--ball-dim);  color: var(--ball); }
+.sec-badge.ai     { background: var(--accent-dim); color: var(--accent); }
+.sec-badge.info   { background: rgba(77,166,255,.12); color: var(--blue); }
+.sec-pills { display: flex; gap: 6px; flex-wrap: wrap; align-items: flex-start; padding-top: 2px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: var(--card2); border: 1px solid var(--border2);
+  border-radius: 7px; padding: 5px 11px;
+  font-size: 11px; font-weight: 600; color: var(--text2);
+  cursor: pointer; transition: all .15s; user-select: none;
+}
+.pill:hover  { border-color: var(--ball); color: var(--text); }
+.pill.active { background: var(--ball-dim); border-color: rgba(255,107,0,.3); color: var(--ball); }
+
+/* ══════════════════════════════════════════════
+   SCOREBOARD HERO
+   with basketball court SVG decoration
+   ══════════════════════════════════════════════ */
+.scoreboard-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  margin-bottom: 22px;
+  position: relative;
+}
+/* Basketball court arc decoration */
+.scoreboard-wrap::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: 50%;
+  transform: translateX(-50%);
+  width: 400px; height: 400px;
+  border: 1px solid rgba(255,107,0,.07);
+  border-radius: 50%;
+  pointer-events: none; z-index: 0;
+}
+.scoreboard-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 2px; height: 100%;
+  background: linear-gradient(to bottom, rgba(255,107,0,.08), transparent, rgba(255,107,0,.08));
+  pointer-events: none; z-index: 0;
+}
+.sb-main {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  position: relative; z-index: 1;
+}
+.sb-side {
+  padding: 28px 28px 22px;
+}
+.sb-side.mine {
+  background: linear-gradient(135deg, rgba(255,212,59,.07) 0%, transparent 65%);
+  border-right: 1px solid var(--border);
+}
+.sb-side.opp {
+  background: linear-gradient(225deg, rgba(240,62,62,.07) 0%, transparent 65%);
+  border-left: 1px solid var(--border);
+  text-align: right;
+}
+.sb-team-label {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--muted); margin-bottom: 8px;
+  display: flex; align-items: center; gap: 6px;
+}
+.sb-side.opp .sb-team-label { justify-content: flex-end; }
+.sb-team-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.sb-team-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+.sb-score {
+  font-family: var(--font-bc);
+  font-size: 64px; font-weight: 900; line-height: 1; letter-spacing: -.01em;
+}
+.sb-score.lead  { color: var(--green); text-shadow: 0 0 30px rgba(0,210,106,.25); }
+.sb-score.trail { color: var(--text2); opacity: .7; }
+.sb-score-sub { font-size: 10px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: .08em; }
+.sb-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 10px; padding: 4px 10px; border-radius: 6px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+  cursor: default;
+}
+.sb-badge.win  { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0,210,106,.2); }
+.sb-badge.lose { background: var(--card2); color: var(--text2); border: 1px solid var(--border); }
+
+.sb-center {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 28px 22px; position: relative; z-index: 1;
+}
+/* Basketball between scores */
+.sb-ball-icon {
+  font-size: 24px; margin-bottom: 6px;
+  animation: ball-float 3s ease-in-out infinite;
+}
+@keyframes ball-float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+.sb-vs { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 6px; }
+.sb-diff {
+  font-family: var(--font-bc);
+  font-size: 42px; font-weight: 900; line-height: 1;
+  letter-spacing: -.01em;
+}
+.sb-diff.pos { color: var(--green); text-shadow: 0 0 20px rgba(0,210,106,.3); }
+.sb-diff.neg { color: var(--red);   text-shadow: 0 0 20px rgba(240,62,62,.3); }
+.sb-diff-sub { font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; margin-top: 4px; }
+
+.sb-footer {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+  background: rgba(255,255,255,.01);
+  position: relative; z-index: 1;
+}
+.sb-stat {
+  padding: 13px 18px; border-right: 1px solid var(--border);
+  font-size: 10.5px; color: var(--text2); cursor: default;
+}
+.sb-stat:last-child { border-right: none; }
+.sb-val {
+  font-family: var(--font-data);
+  font-size: 18px; font-weight: 700;
+  color: var(--text); display: block; line-height: 1.3;
+}
+.sb-val.green  { color: var(--green); }
+.sb-val.red    { color: var(--red); }
+.sb-val.ball   { color: var(--ball); }
+
+@media(max-width:680px) {
+  .sb-main { grid-template-columns: 1fr; }
+  .sb-side { border-right:none!important; border-left:none!important; padding:20px 18px; }
+  .sb-side.opp { text-align:left; }
+  .sb-side.opp .sb-team-label { justify-content:flex-start; }
+  .sb-center { padding:14px 18px; border-top:1px solid var(--border); border-bottom:1px solid var(--border); flex-direction:row; justify-content:space-around; }
+  .sb-ball-icon { display:none; }
+  .sb-footer { grid-template-columns: 1fr 1fr; }
+  .sb-score { font-size: 48px; }
+}
+
+/* ══════════════════════════════════════════════
+   PLAYER CARDS
+   ══════════════════════════════════════════════ */
+.player-list { display: flex; flex-direction: column; gap: 4px; }
+.player-card {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 11px; border-radius: 9px;
+  background: var(--card2); border: 1px solid var(--border);
+  transition: all .18s; cursor: default;
+  border-left: 3px solid var(--card3);
+}
+.player-card:hover { background: var(--card3); border-color: var(--border2); transform: translateX(2px); }
+.player-card.playing { border-left-color: var(--green); }
+.player-card.resting { opacity: .5; border-left-color: var(--card3); }
+.player-card.injured { border-left-color: var(--red); background: rgba(240,62,62,.04); }
+.player-card.dtd     { border-left-color: var(--yellow); background: rgba(255,212,59,.04); }
+.player-card.bench-on  { border-left-color: var(--blue); }
+.player-card.bench-off { opacity: .35; border-left-color: var(--card3); }
+
+.p-slot {
+  font-family: var(--font-bc);
+  font-size: 9.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase;
+  background: var(--card3); color: var(--muted); border: 1px solid var(--border2);
+  padding: 3px 6px; border-radius: 5px; min-width: 32px; text-align: center; flex-shrink: 0;
+}
+.p-slot.active { color: var(--text2); }
+.p-av {
+  width: 28px; height: 28px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-bc); font-size: 11px; font-weight: 900; flex-shrink: 0;
+}
+.p-av.mine  { background: rgba(255,212,59,.12); color: #ffd43b; }
+.p-av.opp   { background: var(--red-dim); color: var(--opp); }
+.p-av.bench { background: var(--card3); color: var(--muted); }
+.p-info { flex: 1; min-width: 0; }
+.p-name { font-size: 12.5px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.p-pos  { font-size: 10px; color: var(--muted); margin-top: 1px; }
+.p-chip {
+  display: inline-flex; align-items: center; gap: 3px;
+  font-size: 9px; font-weight: 800; padding: 3px 7px; border-radius: 5px;
+  flex-shrink: 0; text-transform: uppercase; letter-spacing: .05em;
+}
+.p-chip.plays { background: var(--green-dim); color: var(--green); }
+.p-chip.rest  { background: var(--card3); color: var(--muted); }
+.p-chip.out   { background: var(--red-dim); color: var(--red); }
+.p-chip.dtd   { background: var(--yellow-dim); color: var(--yellow); }
+.p-rem {
+  font-family: var(--font-data);
+  font-size: 13px; font-weight: 700; color: var(--muted);
+  flex-shrink: 0; min-width: 20px; text-align: right;
+}
+.p-rem.hi { color: var(--ball); }
+
+.sec-lbl {
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .1em; color: var(--muted);
+  display: flex; align-items: center; gap: 7px; margin: 12px 0 7px;
+}
+.sec-lbl::after { content:''; flex:1; height:1px; background:var(--border); }
+
+.action-card { border-radius: 8px; padding: 10px 13px; margin-bottom: 6px; border: 1px solid transparent; font-size: 12px; line-height: 1.5; }
+.action-card.swap  { background: rgba(240,62,62,.07);  border-color: rgba(240,62,62,.2); }
+.action-card.dtd   { background: rgba(255,212,59,.06); border-color: rgba(255,212,59,.2); }
+.action-card.bench { background: rgba(77,166,255,.06); border-color: rgba(77,166,255,.2); }
+.ac-lbl { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
+.action-card.swap  .ac-lbl { color: var(--red); }
+.action-card.dtd   .ac-lbl { color: var(--yellow); }
+.action-card.bench .ac-lbl { color: var(--blue); }
+
+/* ══════════════════════════════════════════════
+   WEEK FORECAST
+   ══════════════════════════════════════════════ */
+.day-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 7px; margin-bottom: 16px;
+}
+@media(max-width:640px){ .day-grid { grid-template-columns: repeat(4, 1fr); } }
+.day-box {
+  background: var(--card2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 11px 6px; text-align: center;
+  cursor: default; transition: all .15s;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+}
+.day-box:hover { border-color: var(--border2); background: var(--card3); }
+.day-box.past { opacity: .28; }
+.day-box.today {
+  border-color: rgba(255,107,0,.45);
+  background: var(--ball-dim);
+  box-shadow: 0 0 18px rgba(255,107,0,.1);
+}
+.day-box.win  { border-color: rgba(0,210,106,.22); background: var(--green-dim); }
+.day-box.loss { border-color: rgba(240,62,62,.22); background: var(--red-dim); }
+.db-lbl { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+.mini-bars { display: flex; align-items: flex-end; gap: 2px; height: 26px; margin: 3px 0 2px; }
+.mb { flex: 1; border-radius: 2px 2px 0 0; min-height: 3px; }
+.mb.m { background: var(--ball); opacity: .65; }
+.mb.o { background: var(--red); opacity: .5; }
+.db-diff { font-family: var(--font-bc); font-size: 26px; font-weight: 900; line-height: 1; }
+.db-diff.pos { color: var(--green); }
+.db-diff.neg { color: var(--red); }
+.db-diff.zer { color: var(--muted); }
+.db-score { font-size: 9px; color: var(--muted); font-weight: 600; }
+
+.forecast-tbl { width:100%; border-collapse:collapse; font-size:12.5px; }
+.forecast-tbl th { font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--muted); padding:5px 8px; text-align:center; border-bottom:1px solid var(--border); }
+.forecast-tbl th:first-child { text-align:left; }
+.forecast-tbl td { padding:6px 8px; text-align:center; font-weight:600; }
+.forecast-tbl td:first-child { text-align:left; color:var(--text2); font-weight:500; }
+.forecast-tbl tr.tr-today td { background:rgba(255,107,0,.04); }
+.forecast-tbl tr.tr-past  td { opacity:.38; }
+.forecast-tbl tfoot td { border-top:1px solid var(--border2); font-weight:800; padding-top:9px; }
+.t-me  { color:var(--ball)!important; font-weight:700!important; }
+.t-op  { color:#445!important; }
+.t-pos { color:var(--green)!important; }
+.t-neg { color:var(--red)!important; }
+.t-zer { color:var(--muted)!important; }
+
+/* ══════════════════════════════════════════════
+   FREE AGENTS
+   ══════════════════════════════════════════════ */
+.fa-card {
+  background:var(--card2); border:1px solid var(--border);
+  border-radius:var(--r); padding:13px 15px; margin-bottom:7px;
+  transition:all .15s;
+}
+.fa-card:hover { border-color:var(--border2); background:var(--card3); }
+.fa-card.add  { border-color:rgba(0,210,106,.22);  background:rgba(0,210,106,.04); }
+.fa-card.one  { border-color:rgba(255,107,0,.22);  background:rgba(255,107,0,.04); }
+.fa-card.skip { opacity:.48; }
+.fa-top  { display:flex; align-items:center; gap:8px; margin-bottom:6px; flex-wrap:wrap; }
+.fa-badge {
+  font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.1em;
+  padding:3px 8px; border-radius:5px; flex-shrink:0;
+}
+.fa-badge.add  { background:var(--green-dim); color:var(--green); }
+.fa-badge.one  { background:var(--ball-dim);  color:var(--ball); }
+.fa-badge.skip { background:var(--card3); color:var(--muted); }
+.fa-name { font-size:14px; font-weight:700; font-family:var(--font-bc); }
+.fa-pos  { font-size:11px; color:var(--muted); }
+.fa-now  { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.06em; background:var(--green-dim); color:var(--green); padding:2px 7px; border-radius:5px; }
+.fa-why  { font-size:12px; color:var(--text2); line-height:1.5; margin-bottom:7px; }
+.fa-meta { display:flex; gap:12px; flex-wrap:wrap; }
+.fa-m { font-size:11px; color:var(--muted); }
+.fa-m b { color:var(--text); font-weight:600; }
+
+/* ══════════════════════════════════════════════
+   PREDICTION MODULE
+   ══════════════════════════════════════════════ */
+.buf-wrap { display:flex; flex-direction:column; gap:4px; }
+.buf-lbl  { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.11em; color:var(--muted); }
+.buf-num  {
+  font-family:var(--font-bc);
+  font-size:80px; font-weight:900; line-height:1; letter-spacing:-.02em;
+}
+.buf-num.green  { color:var(--green);  text-shadow:0 0 40px rgba(0,210,106,.3); }
+.buf-num.yellow { color:var(--yellow); text-shadow:0 0 40px rgba(255,212,59,.25); }
+.buf-num.red    { color:var(--red);    text-shadow:0 0 40px rgba(240,62,62,.25); }
+.buf-unit  { font-size:15px; color:var(--muted); font-weight:500; margin-left:4px; }
+.buf-desc  { font-size:12.5px; color:var(--text2); line-height:1.65; margin-top:4px; }
+
+.sc-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+@media(max-width:580px){ .sc-grid { grid-template-columns:1fr; } }
+.sc {
+  background:var(--card2); border:1px solid var(--border);
+  border-radius:var(--r); padding:16px;
+  display:flex; flex-direction:column; gap:5px;
+  transition:all .18s; cursor:default;
+}
+.sc:hover { transform:translateY(-2px); border-color:var(--border2); }
+.sc.best  { border-color:rgba(0,210,106,.22);  background:rgba(0,210,106,.04); }
+.sc.exp   { border-color:rgba(255,212,59,.22);  background:rgba(255,212,59,.04); }
+.sc.worst { border-color:rgba(240,62,62,.22);   background:rgba(240,62,62,.04); }
+.sc-icon { font-size:18px; }
+.sc-type { font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); }
+.sc-val  { font-family:var(--font-bc); font-size:40px; font-weight:900; line-height:1; }
+.sc.best  .sc-val { color:var(--green); }
+.sc.exp   .sc-val { color:var(--yellow); }
+.sc.worst .sc-val { color:var(--red); }
+.sc-res  { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.07em; }
+.r-win   { color:var(--green); } .r-close { color:var(--yellow); } .r-danger { color:var(--red); }
+.sc-note { font-size:10px; color:var(--muted); line-height:1.4; margin-top:2px; }
+
+.win-bar-wrap { position:relative; height:62px; margin:14px 0 30px; }
+.win-bar-bg {
+  position:absolute; top:16px; left:0; right:0; height:26px;
+  border-radius:13px; overflow:hidden;
+  background:linear-gradient(to right, #7f1d1d 0%, #f03e3e 22%, #ffd43b 45%, #00d26a 68%, #065f46 100%);
+}
+.win-zero {
+  position:absolute; top:10px; bottom:0; width:2px;
+  background:rgba(255,255,255,.4); border-radius:1px; transform:translateX(-50%);
+}
+.win-zero::before {
+  content:'0'; position:absolute; top:-15px; left:50%; transform:translateX(-50%);
+  font-size:9px; color:rgba(255,255,255,.4); font-weight:700; font-family:var(--font-bc);
+}
+.win-pin { position:absolute; top:12px; border-radius:2px; transform:translateX(-50%); }
+.win-pin.w { width:3px; height:20px; background:#f03e3e; }
+.win-pin.e { width:3px; height:20px; background:#ffd43b; }
+.win-pin.b { width:3px; height:20px; background:#00d26a; }
+.win-pin.c { width:5px; height:28px; top:10px; background:#fff; box-shadow:0 0 10px rgba(255,255,255,.7); }
+.win-lbl {
+  position:absolute; top:44px; transform:translateX(-50%);
+  font-size:9.5px; font-weight:700; font-family:var(--font-bc); white-space:nowrap;
+}
+.win-lbl.w { color:#f03e3e; } .win-lbl.e { color:#ffd43b; }
+.win-lbl.b { color:#00d26a; } .win-lbl.c { color:#fff; font-size:10.5px; }
+
+.proj-tbl { width:100%; border-collapse:collapse; font-size:12px; }
+.proj-tbl th { font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--muted); padding:4px 7px; text-align:right; border-bottom:1px solid var(--border); }
+.proj-tbl th:first-child { text-align:left; }
+.proj-tbl td { padding:5px 7px; text-align:right; border-top:1px solid var(--border); }
+.proj-tbl td:first-child { text-align:left; }
+.proj-tbl tr.dtd-r td { opacity:.6; }
+.proj-tbl tfoot td { border-top:2px solid var(--border2); font-weight:800; font-family:var(--font-bc); font-size:14px; padding-top:7px; }
+.proj-bar { display:inline-block; height:4px; border-radius:2px; vertical-align:middle; margin-left:7px; min-width:2px; opacity:.6; }
+
+.transp-btn {
+  display:inline-flex; align-items:center; gap:6px;
+  background:none; border:1px solid var(--border2); color:var(--muted);
+  border-radius:7px; padding:6px 12px; font-size:11px;
+  cursor:pointer; font-family:var(--font-body); margin-top:14px; transition:all .15s;
+}
+.transp-btn:hover { border-color:var(--ball); color:var(--text2); }
+.transp-body {
+  background:rgba(255,255,255,.015); border:1px solid var(--border);
+  border-radius:10px; padding:13px 15px; margin-top:8px;
+  font-size:11.5px; color:var(--text2); line-height:1.85; display:none;
+}
+.transp-body.open { display:block; }
+.transp-body code { color:var(--text); background:var(--card3); padding:1px 5px; border-radius:4px; font-size:10.5px; font-family:var(--font-data); }
+
+.stat-chips { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+.chip {
+  display:inline-flex; align-items:center; gap:5px;
+  background:var(--card2); border:1px solid var(--border);
+  border-radius:7px; padding:5px 10px; font-size:11.5px; color:var(--text2);
+}
+.chip b { color:var(--text); font-weight:700; }
+
+/* ── Loading ── */
+#loading {
+  display:flex; flex-direction:column; align-items:center;
+  justify-content:center; min-height:60vh; gap:14px; color:var(--muted);
+}
+.spinner {
+  width:32px; height:32px; border:2.5px solid var(--border2);
+  border-top-color:var(--ball); border-radius:50%;
+  animation:spin .75s linear infinite;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* ── Fade in ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+.fade { animation:fadeUp .3s ease-out both; }
+
+/* ── Responsive sidebar collapse ── */
+@media(max-width:1080px) {
+  .sidebar { width:64px; min-width:64px; }
+  .sidebar-title, .sidebar-sub, .nav-link span, .nav-tag,
+  .nav-group-label, .sidebar-teams, .sidebar-foot span { display:none; }
+  .sidebar-header { justify-content:center; padding:16px 8px; }
+  .nav-link { padding:10px; justify-content:center; }
+  .sidebar-nav { padding:8px; }
+  .sidebar-foot { padding:12px; justify-content:center; }
+  .main { margin-left:64px; }
+  .topbar, .content { padding-left:20px; padding-right:20px; }
+}
+@media(max-width:768px) {
+  .topbar-crumb { display:none; }
+  .content { padding:14px 14px 48px; }
+  .topbar { padding:0 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ SIDEBAR ══════════════════════════════════════════════ -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-icon">
+      <!-- Basketball SVG icon -->
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="10" stroke="#ff6b00" stroke-width="1.5"/>
+        <path d="M12 2C12 2 8 7 8 12C8 17 12 22 12 22" stroke="#ff6b00" stroke-width="1.5"/>
+        <path d="M12 2C12 2 16 7 16 12C16 17 12 22 12 22" stroke="#ff6b00" stroke-width="1.5"/>
+        <path d="M2 12H22" stroke="#ff6b00" stroke-width="1.5"/>
+        <path d="M3.5 7H20.5" stroke="#ff6b00" stroke-width="1" opacity=".5"/>
+        <path d="M3.5 17H20.5" stroke="#ff6b00" stroke-width="1" opacity=".5"/>
+      </svg>
+    </div>
+    <div>
+      <div class="sidebar-title">NBA Fantasy</div>
+      <div class="sidebar-sub">BUG NBA League</div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-group">
+      <span class="nav-group-label">Főmenü</span>
+      <a class="nav-link active" href="#top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        <span>Dashboard</span>
+        <span class="nav-tag live">Live</span>
+      </a>
+      <a class="nav-link" href="#section-forecast">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        <span>Heti előrejelzés</span>
+      </a>
+      <a class="nav-link" href="#section-fa">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/>
+        </svg>
+        <span>Free Agents</span>
+        <span class="nav-tag new">Új</span>
+      </a>
+      <a class="nav-link" href="#section-prediction">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/>
+        </svg>
+        <span>Win Forecast</span>
+        <span class="nav-tag beta">AI</span>
+      </a>
+    </div>
+
+    <div class="nav-group">
+      <span class="nav-group-label">Lineup</span>
+      <a class="nav-link" href="#section-lineup">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <span>Saját lineup</span>
+      </a>
+      <a class="nav-link" href="#section-lineup">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+        </svg>
+        <span>Ellenfél</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="sidebar-teams" id="sb-teams">
+    <span class="st-label">Csapatok</span>
+  </div>
+
+  <div class="sidebar-foot">
+    <div class="live-dot"></div>
+    <span>Auto-refresh · 5 perc</span>
+  </div>
+</aside>
+
+<!-- ══ MAIN ═════════════════════════════════════════════════ -->
+<div class="main" id="top">
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-crumb">
+        <span>BUG NBA</span>
+        <span class="sep">›</span>
+        <span class="cur">Dashboard</span>
+      </div>
+      <div class="matchup-chip">🏀 Matchup 22 · Döntő · márc. 23–29.</div>
+    </div>
+    <div class="topbar-right">
+      <span id="topbar-time"></span>
+      <button class="tb-btn" onclick="loadData()" style="cursor:pointer">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+          <path d="M23 4v6h-6"/><path d="M1 20v-6h6"/>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+        </svg>
+        Frissítés
+      </button>
+      <button class="tb-btn primary" style="cursor:pointer">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        Live
+      </button>
+    </div>
+  </header>
+
+  <div class="content">
+    <div id="loading">
+      <div class="spinner"></div>
+      <div style="font-size:12px;font-weight:500;letter-spacing:.04em;color:var(--muted)">Betöltés...</div>
+    </div>
+
+    <div id="main-content" style="display:none">
+
+      <!-- Alert bar — scrolls with content, not fixed -->
+      <div class="alert-area" id="alert-area"></div>
+
+      <!-- SCOREBOARD -->
+      <div id="m1-scoreboard" class="fade"></div>
+
+      <!-- LINEUP section -->
+      <div id="section-lineup" style="scroll-margin-top:70px">
+        <div class="sec-header fade">
+          <div class="sec-header-left">
+            <div class="sec-title" id="lineup-title">Mai Lineup</div>
+            <div class="sec-sub" id="lineup-sub">Aktív játékosok</div>
+            <span class="sec-badge live">● Live</span>
+          </div>
+          <div class="sec-pills">
+            <div class="pill active" style="cursor:pointer">Aktív</div>
+            <div class="pill" style="cursor:pointer">Pad</div>
+          </div>
+        </div>
+        <div class="grid2 fade" style="margin-bottom:24px">
+          <div class="card" id="m2-lineup"></div>
+          <div class="card" id="m3-opponent"></div>
+        </div>
+      </div>
+
+      <!-- FORECAST section -->
+      <div id="section-forecast" style="scroll-margin-top:70px">
+        <div class="sec-header fade">
+          <div class="sec-header-left">
+            <div class="sec-title">Heti előrejelzés</div>
+            <div class="sec-sub">Los Angyalfold vs Team avenGER · márc. 23–29.</div>
+          </div>
+          <div class="sec-pills">
+            <div class="pill active" style="cursor:pointer">7 nap</div>
+            <div class="pill" style="cursor:pointer">Hátralevő</div>
+          </div>
+        </div>
+        <div class="card fade" style="margin-bottom:24px" id="m5-forecast"></div>
+      </div>
+
+      <!-- FREE AGENTS section -->
+      <div id="section-fa" style="scroll-margin-top:70px">
+        <div class="sec-header fade">
+          <div class="sec-header-left">
+            <div class="sec-title">Free Agent Elemzés</div>
+            <div class="sec-sub">Javasolt felvételek a döntő végéig</div>
+            <span class="sec-badge info">Analyzer</span>
+          </div>
+        </div>
+        <div class="card fade" style="margin-bottom:24px" id="m4-fa"></div>
+      </div>
+
+      <!-- PREDICTION section -->
+      <div id="section-prediction" style="scroll-margin-top:70px">
+        <div class="sec-header fade">
+          <div class="sec-header-left">
+            <div class="sec-title">Win Probability Forecast</div>
+            <div class="sec-sub">Projekció · szcenárió analízis · puffer kalkulátor</div>
+            <span class="sec-badge ai">AI Model</span>
+          </div>
+        </div>
+        <div class="card fade" id="m6-prediction"></div>
+      </div>
+
+    </div><!-- /main-content -->
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<script>
+let refreshTimer = null;
+
+async function loadData() {
+  try {
+    const res = await fetch('data.json?t=' + Date.now());
+    const d   = await res.json();
+    render(d);
+  } catch(e) {
+    document.getElementById('loading').innerHTML =
+      `<div style="color:var(--red);text-align:center;font-size:13px;line-height:2.4">
+        ⚠️ Nem sikerült betölteni a data.json-t.<br>
+        <code style="background:var(--card2);padding:4px 12px;border-radius:6px;font-size:11px;font-family:var(--font-data)">python3 fetch_data.py</code>
+       </div>`;
+  }
+}
+
+function render(d) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('main-content').style.display = 'block';
+  document.getElementById('topbar-time').textContent = d.generated_at;
+
+  renderAlerts(d);
+  renderSidebarTeams(d);
+  renderScoreboard(d);
+  renderLineup(d);
+  renderOpponent(d);
+  renderForecast(d);
+  renderFA(d);
+  renderPrediction(d);
+
+  clearTimeout(refreshTimer);
+  refreshTimer = setTimeout(loadData, 5 * 60 * 1000);
+}
+
+// ── Alerts ─────────────────────────────────────────────────
+function renderAlerts(d) {
+  const el = document.getElementById('alert-area');
+  if (!d.alerts || !d.alerts.length) { el.innerHTML = ''; return; }
+  el.innerHTML = d.alerts.map(a =>
+    `<div class="alert ${a.level}"><span style="font-size:15px">${a.level==='red'?'🚨':'⚠️'}</span><span>${a.message}</span></div>`
+  ).join('');
+}
+
+// ── Sidebar teams ──────────────────────────────────────────
+function renderSidebarTeams(d) {
+  const sb = d.scoreboard, rem = d.remaining_totals;
+  document.getElementById('sb-teams').innerHTML = `
+    <span class="st-label">Csapatok</span>
+    <div class="team-row"><div class="team-av mine">LA</div>
+      <div class="team-info"><div class="team-nm">Los Angyalfold</div><div class="team-sb">${rem.my_total}× hátra</div></div>
+      <div class="team-sc ${sb.leading?'lead':'trail'}">${sb.my_score.toFixed(0)}</div></div>
+    <div class="team-row"><div class="team-av opp">AG</div>
+      <div class="team-info"><div class="team-nm">Team avenGER</div><div class="team-sb">${rem.opp_total}× hátra</div></div>
+      <div class="team-sc ${!sb.leading?'lead':'trail'}">${sb.opp_score.toFixed(0)}</div></div>`;
+}
+
+// ── M1: Scoreboard ─────────────────────────────────────────
+function renderScoreboard(d) {
+  const sb = d.scoreboard, diff = sb.diff, rem = d.remaining_totals;
+  const ds = diff >= 0 ? '+' + diff.toFixed(1) : diff.toFixed(1);
+  const td = sb.today_my_players - sb.today_opp_players;
+  const saf = d.days_left > 0 ? (diff / d.days_left).toFixed(1) : '–';
+  const rd = rem.diff >= 0 ? '+' + rem.diff : String(rem.diff);
+
+  document.getElementById('m1-scoreboard').innerHTML = `
+    <div class="scoreboard-wrap">
+      <div class="sb-main">
+        <div class="sb-side mine">
+          <div class="sb-team-label">
+            <span class="sb-team-dot" style="background:#ffd43b"></span>
+            Los Angyalfold
+          </div>
+          <div class="sb-team-name">🟡 ${sb.my_team}</div>
+          <div class="sb-score ${sb.leading?'lead':'trail'}">${sb.my_score.toFixed(1)}</div>
+          <div class="sb-score-sub">Fantasy pontok</div>
+          <div class="sb-badge ${sb.leading?'win':'lose'}">${sb.leading?'▲ Vezet':'▼ Lemarad'}</div>
+        </div>
+        <div class="sb-center">
+          <div class="sb-ball-icon">🏀</div>
+          <div class="sb-vs">VS</div>
+          <div class="sb-diff ${diff>=0?'pos':'neg'}">${ds}</div>
+          <div class="sb-diff-sub">pont különbség</div>
+        </div>
+        <div class="sb-side opp">
+          <div class="sb-team-label">
+            <span class="sb-team-dot" style="background:var(--opp)"></span>
+            Team avenGER
+          </div>
+          <div class="sb-team-name">${sb.opp_team} 🔴</div>
+          <div class="sb-score ${!sb.leading?'lead':'trail'}">${sb.opp_score.toFixed(1)}</div>
+          <div class="sb-score-sub">Fantasy pontok</div>
+          <div class="sb-badge ${!sb.leading?'win':'lose'}" style="margin-left:auto">${!sb.leading?'▲ Vezet':'▼ Lemarad'}</div>
+        </div>
+      </div>
+      <div class="sb-footer">
+        <div class="sb-stat">
+          <span class="sb-val ${diff>=0?'green':'red'}">${diff>=0?saf+' pts':'–'}</span>
+          Napi puffer
+        </div>
+        <div class="sb-stat">
+          <span class="sb-val">${d.days_left}</span>
+          Hátralévő nap
+        </div>
+        <div class="sb-stat">
+          <span class="sb-val">
+            <span style="color:var(--ball)">${rem.my_total}</span>
+            <span style="color:var(--muted);font-size:13px"> / </span>
+            <span style="color:#445">${rem.opp_total}</span>
+            <span style="color:${rem.diff>0?'var(--green)':rem.diff<0?'var(--red)':'var(--muted)'}"> (${rd})</span>
+          </span>
+          Hátralévő meccsek
+        </div>
+        <div class="sb-stat">
+          <span class="sb-val ${td>0?'green':td<0?'red':''}">${td>0?'+'+td:td} játékos</span>
+          Ma aktív Δ
+        </div>
+      </div>
+    </div>`;
+
+  document.getElementById('lineup-title').textContent = 'Mai Lineup – ' + d.today;
+  document.getElementById('lineup-sub').textContent = 'Aktív slotok · ' + d.my_roster.active.filter(p=>p.plays_today).length + ' játékos játszik ma';
+}
+
+// ── Helpers ────────────────────────────────────────────────
+function ini(name) {
+  const p = name.trim().split(' ');
+  return p.length === 1 ? p[0].slice(0,2).toUpperCase() : (p[0][0]+p[p.length-1][0]).toUpperCase();
+}
+function cStatus(p) {
+  const b = p.slot==='BE'||p.slot==='IR';
+  if (b) return p.plays_today ? 'bench-on' : 'bench-off';
+  if (['OUT','IR','SUSPENSION'].includes(p.injury)) return 'injured';
+  if (['DAY_TO_DAY','DTD','QUESTIONABLE'].includes(p.injury)) return 'dtd';
+  if (p.plays_today) return 'playing';
+  return 'resting';
+}
+function statusChip(p) {
+  if (['OUT','IR','SUSPENSION'].includes(p.injury))
+    return `<span class="p-chip out">🚫 ${p.injury==='SUSPENSION'?'SUSP':p.injury}</span>`;
+  if (['DAY_TO_DAY','DTD','QUESTIONABLE'].includes(p.injury))
+    return `<span class="p-chip dtd">⚠️ DTD${p.plays_today?' 🟢':''}</span>`;
+  if (p.plays_today) return `<span class="p-chip plays">🟢 Játszik</span>`;
+  return `<span class="p-chip rest">💤 Pihen</span>`;
+}
+function pCard(p, team) {
+  const b = p.slot==='BE'||p.slot==='IR';
+  const ic = b?'bench':team==='opp'?'opp':'mine';
+  return `
+    <div class="player-card ${cStatus(p)}">
+      <span class="p-slot${!b?' active':''}">${p.slot}</span>
+      <span class="p-av ${ic}">${ini(p.name)}</span>
+      <span class="p-info">
+        <span class="p-name">${p.name}</span>
+        <span class="p-pos">${p.position}</span>
+      </span>
+      ${statusChip(p)}
+      <span class="p-rem${p.rem_count>=3?' hi':''}">${p.rem_count}×</span>
+    </div>`;
+}
+
+// ── M2: Lineup ─────────────────────────────────────────────
+function renderLineup(d) {
+  const acts = d.lineup_actions.length > 0
+    ? d.lineup_actions.map(a => {
+        if (a.type==='swap_required')     return `<div class="action-card swap"><div class="ac-lbl">🔄 Csere szükséges</div><b>${a.player_out}</b> (${a.slot}) → <b>${a.player_in}</b><br><small style="color:var(--text2)">${a.reason}</small></div>`;
+        if (a.type==='dtd_watch')         return `<div class="action-card dtd"><div class="ac-lbl">⚠️ DTD Figyelés</div><b>${a.player}</b> – ${a.reason}</div>`;
+        if (a.type==='bench_opportunity') return `<div class="action-card bench"><div class="ac-lbl">🪑 Pad → Aktív</div>${a.reason}</div>`;
+        return '';
+      }).join('')
+    : `<div style="display:flex;align-items:center;gap:7px;color:var(--green);font-size:12px;font-weight:600;padding:4px 0">✅ Minden rendben</div>`;
+
+  document.getElementById('m2-lineup').innerHTML = `
+    <div class="card-title">Saját lineup</div>
+    <div class="sec-lbl">Aktív</div>
+    <div class="player-list">${d.my_roster.active.map(p=>pCard(p,'mine')).join('')}</div>
+    <div class="sec-lbl">Pad</div>
+    <div class="player-list">${d.my_roster.bench.map(p=>pCard(p,'mine')).join('')}</div>
+    <div class="divider"></div>
+    <div class="sec-lbl">💡 Javaslatok</div>
+    ${acts}`;
+}
+
+// ── M3: Opponent ───────────────────────────────────────────
+function renderOpponent(d) {
+  const opp=d.opp_roster.active, sb=d.scoreboard;
+  const cnt=opp.filter(p=>p.plays_today).length;
+  document.getElementById('m3-opponent').innerHTML = `
+    <div class="card-title">Ellenfél – ${sb.opp_team}</div>
+    <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:14px">
+      <span style="font-family:var(--font-bc);font-size:52px;font-weight:900;color:var(--opp);line-height:1;text-shadow:0 0 20px rgba(240,62,62,.3)">${cnt}</span>
+      <span style="font-size:12px;color:var(--text2)">aktív játékos ma</span>
+    </div>
+    <div class="player-list">
+    ${opp.map(p=>{
+      const inj=['OUT','IR'].includes(p.injury)?`<span class="p-chip out" style="font-size:9px">🚫</span>`:
+                (p.injury==='DAY_TO_DAY'||p.injury==='DTD')?`<span class="p-chip dtd" style="font-size:9px">⚠️</span>`:'';
+      return `
+        <div class="player-card ${p.plays_today?'playing':'resting'}">
+          <span class="p-slot active">${p.slot}</span>
+          <span class="p-av opp">${ini(p.name)}</span>
+          <span class="p-info"><span class="p-name">${p.name}</span><span class="p-pos">${p.position}</span></span>
+          ${p.plays_today?`<span class="p-chip plays">🟢</span>`:`<span class="p-chip rest">⬜</span>`}
+          ${inj}
+          <span class="p-rem${p.rem_count>=3?' hi':''}">${p.rem_count}×</span>
+        </div>`;
+    }).join('')}
+    </div>`;
+}
+
+// ── M5: Forecast ───────────────────────────────────────────
+function renderForecast(d) {
+  const mx = Math.max(...d.daily_counts.map(dc=>Math.max(dc.my_count,dc.opp_count)),1);
+  const cards = d.daily_counts.map(dc=>{
+    const cls=dc.is_past?'past':dc.is_today?'today':dc.diff>0?'win':dc.diff<0?'loss':'';
+    const ds=dc.diff>0?'+'+dc.diff:String(dc.diff);
+    const dc_=dc.diff>0?'pos':dc.diff<0?'neg':'zer';
+    const mh=Math.round((dc.my_count/mx)*22)+4, oh=Math.round((dc.opp_count/mx)*22)+4;
+    return `<div class="day-box ${cls}">
+      <span class="db-lbl">${dc.label.slice(0,3)}${dc.is_today?' ◀':''}</span>
+      <div class="mini-bars"><div class="mb m" style="height:${mh}px"></div><div class="mb o" style="height:${oh}px"></div></div>
+      <span class="db-diff ${dc_}">${ds}</span>
+      <span class="db-score">${dc.my_count}–${dc.opp_count}</span>
+    </div>`;
+  }).join('');
+
+  const rows=d.daily_counts.map(dc=>{
+    const ds=dc.diff>0?'+'+dc.diff:String(dc.diff);
+    const dc_=dc.diff>0?'t-pos':dc.diff<0?'t-neg':'t-zer';
+    const tr=dc.is_today?'tr-today':dc.is_past?'tr-past':'';
+    return `<tr class="${tr}"><td>${dc.label}${dc.is_today?' ◀':''}</td><td class="t-me">${dc.my_count}</td><td class="t-op">${dc.opp_count}</td><td class="${dc_}">${ds}</td></tr>`;
+  }).join('');
+  const rem=d.remaining_totals, rc=rem.diff>0?'t-pos':rem.diff<0?'t-neg':'t-zer';
+
+  document.getElementById('m5-forecast').innerHTML = `
+    <div class="day-grid">${cards}</div>
+    <table class="forecast-tbl">
+      <thead><tr><th style="text-align:left">Nap</th><th>🟡 LOSA</th><th>🔴 avenGER</th><th>Δ</th></tr></thead>
+      <tbody>${rows}</tbody>
+      <tfoot><tr>
+        <td style="color:var(--text);font-weight:700">Összesen (hátra)</td>
+        <td class="t-me">${rem.my_total}</td><td class="t-op">${rem.opp_total}</td>
+        <td class="${rc}">${rem.diff>=0?'+':''}${rem.diff}</td>
+      </tr></tfoot>
+    </table>`;
+}
+
+// ── M4: Free Agents ─────────────────────────────────────────
+function faCard(fa,tier){
+  return `<div class="fa-card ${tier}">
+    <div class="fa-top">
+      <span class="fa-badge ${tier}">${fa.decision||tier.toUpperCase()}</span>
+      <span class="fa-name">${fa.name}</span>
+      <span class="fa-pos">${fa.position}${fa.pro_team?' · '+fa.pro_team:''}</span>
+      ${fa.plays_today?`<span class="fa-now">🟢 Ma játszik</span>`:''}
+    </div>
+    <div class="fa-why">${fa.reasoning}</div>
+    <div class="fa-meta">
+      <div class="fa-m">Hátra: <b>${fa.games_remaining}×</b></div>
+      <div class="fa-m">Avg: <b>${fa.avg_points} pts</b></div>
+      <div class="fa-m">Ejtendő: <b>${fa.drop_player}</b> (${fa.drop_rem_count}×)</div>
+      <div class="fa-m">Net: <b style="color:${fa.net_games>0?'var(--green)':'var(--red)'}">${fa.net_games>0?'+':''}${fa.net_games}</b></div>
+    </div>
+  </div>`;
+}
+function renderFA(d){
+  const fa=d.free_agents;
+  if(fa.error){ document.getElementById('m4-fa').innerHTML=`<div class="card-title">Free Agent</div><div style="color:var(--muted)">Hiba: ${fa.error}</div>`; return; }
+  const addH=fa.add_now.length?fa.add_now.map(f=>faCard(f,'add')).join(''):`<div style="color:var(--muted);font-size:12px;padding:4px 0">Nincs jelölt</div>`;
+  document.getElementById('m4-fa').innerHTML=
+    `<div class="sec-lbl">🔥 Azonnal felvenni</div>${addH}`+
+    (fa.one_day.length?`<div class="sec-lbl">⚡ Csak ma érdemes</div>${fa.one_day.map(f=>faCard(f,'one')).join('')}`:'')+
+    (fa.skip.length?`<div class="sec-lbl">⚠️ Nem érdemes</div>${fa.skip.map(f=>faCard(f,'skip')).join('')}`:'');
+}
+
+// ── M6: Prediction ──────────────────────────────────────────
+function pct(v,mn,mx){ return Math.min(100,Math.max(0,((v-mn)/(mx-mn))*100)).toFixed(1); }
+function vc(l){ return l==='GYŐZELEM'?'r-win':l==='SZOROS'?'r-close':'r-danger'; }
+function projTbl(players,label,color){
+  const tot=players.reduce((s,p)=>s+p.projected,0);
+  const mx=Math.max(...players.map(p=>p.projected),1);
+  const rows=players.map(p=>{
+    const bw=Math.round((p.projected/mx)*65);
+    const dtd=p.is_dtd?` <span style="color:var(--yellow);font-size:9px;font-weight:800">DTD</span>`:'';
+    return `<tr class="${p.is_dtd?'dtd-r':''}">
+      <td>${p.name}${dtd}</td><td>${p.avg_points.toFixed(1)}</td><td>${p.rem_count}</td>
+      <td><b>${p.projected.toFixed(1)}</b><span class="proj-bar" style="width:${bw}px;background:${color}"></span></td>
+    </tr>`;
+  }).join('');
+  return `<table class="proj-tbl">
+    <thead><tr><th>${label}</th><th>Avg</th><th>Meccs</th><th>Becsült</th></tr></thead>
+    <tbody>${rows}</tbody>
+    <tfoot><tr><td>Összesen</td><td></td><td></td><td style="color:${color}">${tot.toFixed(1)} pts</td></tr></tfoot>
+  </table>`;
+}
+
+function renderPrediction(d){
+  if(!d.prediction) return;
+  const pr=d.prediction,buf=pr.buffer,sc=pr.scenarios,tt=pr.team_totals,cur=pr.current_lead;
+  const sign=buf.value>=0?'+':'';
+
+  const bufH=`
+    <div class="buf-wrap">
+      <div class="buf-lbl">6A · Napi puffer</div>
+      <div>
+        <span class="buf-num ${buf.level}">${sign}${buf.value.toFixed(1)}</span>
+        <span class="buf-unit">pts / nap</span>
+      </div>
+      <div class="buf-desc">${buf.interpretation}</div>
+    </div>`;
+
+  const av=[sc.worst.diff,sc.best.diff,cur,0], pad=30;
+  const mn=Math.min(...av)-pad, mx2=Math.max(...av)+pad;
+  const zp=pct(0,mn,mx2), wp=pct(sc.worst.diff,mn,mx2),
+        ep=pct(sc.expected.diff,mn,mx2), bp=pct(sc.best.diff,mn,mx2), cp=pct(cur,mn,mx2);
+  const barH=`
+    <div class="buf-lbl">6D · Győzelmi zóna</div>
+    <div style="font-size:10px;color:var(--muted);margin-bottom:4px">Fehér jelző = most: ${cur>=0?'+':''}${cur.toFixed(0)} pt</div>
+    <div class="win-bar-wrap">
+      <div class="win-bar-bg"></div>
+      <div class="win-zero" style="left:${zp}%"></div>
+      <div class="win-pin w" style="left:${wp}%"></div>
+      <div class="win-pin e" style="left:${ep}%"></div>
+      <div class="win-pin b" style="left:${bp}%"></div>
+      <div class="win-pin c" style="left:${cp}%"></div>
+      <span class="win-lbl w" style="left:${wp}%">${sc.worst.diff.toFixed(0)}</span>
+      <span class="win-lbl e" style="left:${ep}%">~${sc.expected.diff.toFixed(0)}</span>
+      <span class="win-lbl b" style="left:${bp}%">${sc.best.diff.toFixed(0)}</span>
+      <span class="win-lbl c" style="left:${cp}%">▲ ${cur>=0?'+':''}${cur.toFixed(0)}</span>
+    </div>`;
+
+  const scH=`
+    <div class="buf-lbl" style="margin-bottom:10px">6C · Három szcenárió</div>
+    <div class="sc-grid">
+      <div class="sc best"><span class="sc-icon">🟢</span><span class="sc-type">Best Case</span>
+        <span class="sc-val">${sc.best.diff>=0?'+':''}${sc.best.diff.toFixed(0)}</span>
+        <span class="sc-res ${vc(sc.best.label)}">${sc.best.label}</span>
+        <span class="sc-note">Saját DTD-k játszanak · Ellenfél DTD-jei kiesnek</span></div>
+      <div class="sc exp"><span class="sc-icon">🟡</span><span class="sc-type">Expected</span>
+        <span class="sc-val">${sc.expected.diff>=0?'+':''}${sc.expected.diff.toFixed(0)}</span>
+        <span class="sc-res ${vc(sc.expected.label)}">${sc.expected.label}</span>
+        <span class="sc-note">DTD játékosok 50/50 · Mindkét csapatnál</span></div>
+      <div class="sc worst"><span class="sc-icon">🔴</span><span class="sc-type">Worst Case</span>
+        <span class="sc-val">${sc.worst.diff>=0?'+':''}${sc.worst.diff.toFixed(0)}</span>
+        <span class="sc-res ${vc(sc.worst.label)}">${sc.worst.label}</span>
+        <span class="sc-note">Saját DTD-k kiesnek · Ellenfél teli játszik</span></div>
+    </div>`;
+
+  const projH=`
+    <div class="buf-lbl" style="margin-bottom:10px">6B · Játékos projekció</div>
+    <div class="grid2" style="gap:14px">
+      ${projTbl(pr.my_projections,'🟡 Los Angyalfold','var(--ball)')}
+      ${projTbl(pr.opp_projections,'🔴 Team avenGER','#445')}
+    </div>
+    <div class="divider"></div>
+    <div class="stat-chips">
+      <div class="chip">LOSA: <b style="color:var(--ball)">${tt.my_proj_remaining.toFixed(1)} pts</b></div>
+      <div class="chip">avenGER: <b style="color:#445">${tt.opp_proj_remaining.toFixed(1)} pts</b></div>
+      <div class="chip">Δ: <b style="color:${tt.proj_diff>=0?'var(--green)':'var(--red)'}">${tt.proj_diff>=0?'+':''}${tt.proj_diff.toFixed(1)} pts</b></div>
+    </div>`;
+
+  document.getElementById('m6-prediction').innerHTML=`
+    <div class="grid2" style="gap:18px;margin-bottom:16px">
+      <div>${bufH}</div><div>${barH}</div>
+    </div>
+    <div class="divider"></div>
+    ${scH}
+    <div class="divider" style="margin-top:14px"></div>
+    ${projH}
+    <button class="transp-btn" onclick="this.nextElementSibling.classList.toggle('open')" style="cursor:pointer">
+      ℹ️ Hogyan számítjuk?
+    </button>
+    <div class="transp-body">
+      <b>Játékos átlagok:</b> ESPN API szezonátlag (<code>player.avg_points</code>)<br>
+      <b>Hátralévő meccsek:</b> NBA schedule, PDT (UTC−7) konverzióval<br>
+      <b>Becsült pont:</b> <code>avg_points × rem_count</code><br>
+      <b>DTD:</b> Expected szcenárióban 50% valószínűséggel játszik<br>
+      <b>Frissítve:</b> ${d.generated_at}
+    </div>`;
+}
+
+// ── Init ────────────────────────────────────────────────────
+loadData();
+</script>
+</body>
+</html>
